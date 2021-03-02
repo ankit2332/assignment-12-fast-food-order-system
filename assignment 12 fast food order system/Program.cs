@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 
 namespace assignment_12_fast_food_order_system
 {
@@ -6,13 +7,38 @@ namespace assignment_12_fast_food_order_system
     {
         static void Main(string[] args)
         {
-            item[] pricelist = new item[]
+
+            payment ankitluch = new payment();
+            item[] items = new item[100];
+
+            StreamReader FileReader = new StreamReader("food.csv");
+            string line = FileReader.ReadLine();
+            Console.WriteLine(line);
+            int count = 0;
+
+            while ((line = FileReader.ReadLine()) != null)
             {
-                new item("D1","coke",1.99),
-                new item("D2","eas",1.29),
-                new item("F1","Fri",2.99),
-                new item("F2","chicken",4.99)
+                string[] cell = line.Split(',');
+                string code = cell[0];
+                string name = cell[1];
+                double price = Convert.ToDouble(cell[2]);
+
+                Console.WriteLine("{0} {1} {2} {3}",count, code,name,price);
+                count++;
+                items[count] = new item(code,name,price);
             }
+            makeanorder();
+
+            
+            
+                
+        }
+        public static void makeanorder()
+        {
+            Console.WriteLine("Input the code for the Food or Drink you want:");
+            int order = Console.Read();
+
+
         }
     }
 }
